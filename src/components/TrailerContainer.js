@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import Movie from './Movie'
 
 class TrailerContainer extends Component {
-  
+
   render () {
     let { trailers } = this.props
 
     return (
       <div>
-        <p> Trailer Container</p>
+        <p> Popular Movies</p>
         <div>
         { trailers.map( (movie, i) =>
           <Movie
