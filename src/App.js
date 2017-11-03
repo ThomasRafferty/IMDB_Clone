@@ -1,18 +1,48 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import $ from 'jquery';
 import './App.css';
+import TrailerContainer from './components/TrailerContainer';
+
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state= {
+      movies: [],
+      trailers: []
+     };
+}
+
+  componentDidMount(){
+    $.ajax({
+      url: "https://api.themoviedb.org/3/movie/popular?api_key=d79de6ee1c82db4edf8d1d1e6e434d95&language=en-US&page=1"
+    })
+    .done((res) => {
+  console.log(res)
+      let trailerContainerNumber = 3;
+      let trailers = res.results.slice(0, trailerContainerNumber);
+      this.setState({trailers: trailers})
+    })
+  }
+
+  selectMovie(){
+    let { movies } = this.state;
+
+    
+  }
+
   render() {
+    let { trailers } = this.state;
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1> Thomas's IMDB Clone </h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <div className="App-intro">
+          <TrailerContainer
+            trailers={trailers}
+          />
+        </div>
       </div>
     );
   }
